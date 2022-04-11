@@ -21,7 +21,17 @@ FROM python
 RUN pip install flask
 COPY ./static /home/myapp/static
 COPY ./templates /home/myapp/templates
-COPY desafio2_app.oy /home/myapp/
+COPY desafio2_app.py /home/myapp/
 EXPOSE 5050
 CMD python3 /home/myapp/desafio2_app.py
 EOF
+echo "Docker file created, showing its content.."
+cat /tempdir/Dockerfile
+echo "-------------"
+echo "Building app..."
+cd /tempdir/
+sudo docker build -t desafio2app:1.0 .
+echo "Running app..."
+sudo docker run -t -d -p 5050:5050 --name desafio2apprunning desafio2app:1.0
+echo "Showing docker containers..."
+sudo docker ps -a
